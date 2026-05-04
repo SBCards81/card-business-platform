@@ -4,78 +4,124 @@ from datetime import datetime
 from urllib.parse import quote_plus
 
 st.set_page_config(
-    page_title="SB Cards Business Platform",
-    page_icon="🃏",
+    page_title="The Juice Card Platform",
+    page_icon="🧃",
     layout="wide"
 )
 
 # -----------------------------
-# CUSTOM STYLING
+# CUSTOM STYLING / BRANDING
 # -----------------------------
 st.markdown("""
 <style>
-    .main { background-color: #f6f7fb; }
-    .block-container { padding-top: 2rem; padding-bottom: 2rem; }
+    body {
+        background-image: url('https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.png');
+        background-size: 430px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .stApp {
+        background: rgba(255, 255, 255, 0.88);
+    }
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
 
     .app-header {
-        background: linear-gradient(135deg, #111827 0%, #1f2937 45%, #2563eb 100%);
-        padding: 28px;
-        border-radius: 22px;
+        background: linear-gradient(135deg, rgba(2,6,23,0.96) 0%, rgba(14,165,233,0.92) 55%, rgba(249,115,22,0.92) 100%);
+        padding: 30px;
+        border-radius: 26px;
         color: white;
         margin-bottom: 24px;
-        box-shadow: 0 12px 35px rgba(0,0,0,0.16);
+        box-shadow: 0 14px 38px rgba(0,0,0,0.22);
+        border: 4px solid #111827;
+        text-align: center;
     }
 
     .app-header h1 {
         margin: 0;
-        font-size: 42px;
-        font-weight: 800;
+        font-size: 48px;
+        font-weight: 900;
         letter-spacing: -1px;
+        text-shadow: 3px 3px 0px #111827;
     }
 
     .app-header p {
         margin-top: 8px;
-        font-size: 17px;
-        color: #dbeafe;
+        font-size: 18px;
+        color: #ffffff;
+        font-weight: 700;
     }
 
     .section-card {
-        background: white;
+        background: rgba(255,255,255,0.94);
         padding: 24px;
-        border-radius: 20px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-        border: 1px solid #e5e7eb;
+        border-radius: 22px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+        border: 2px solid #e5e7eb;
         margin-bottom: 20px;
     }
 
     .step-badge {
         display: inline-block;
-        background: #dbeafe;
-        color: #1d4ed8;
-        padding: 6px 12px;
+        background: #0ea5e9;
+        color: white;
+        padding: 7px 14px;
         border-radius: 999px;
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 900;
         margin-bottom: 10px;
+        border: 2px solid #111827;
     }
 
-    .good { color: #16a34a; font-weight: 800; font-size: 22px; }
-    .bad { color: #dc2626; font-weight: 800; font-size: 22px; }
-    .warn { color: #d97706; font-weight: 800; font-size: 22px; }
+    .good { color: #16a34a; font-weight: 900; font-size: 22px; }
+    .bad { color: #dc2626; font-weight: 900; font-size: 22px; }
+    .warn { color: #f97316; font-weight: 900; font-size: 22px; }
 
     div[data-testid="stMetric"] {
-        background: white;
+        background: rgba(255,255,255,0.96);
         padding: 18px;
         border-radius: 18px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-        border: 1px solid #e5e7eb;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+        border-left: 7px solid #f97316;
     }
 
-    .stButton > button { border-radius: 12px; height: 44px; font-weight: 700; }
-    .stLinkButton > a { border-radius: 12px; font-weight: 700; }
+    .stButton > button {
+        background-color: #f97316;
+        color: white;
+        border-radius: 14px;
+        height: 46px;
+        font-weight: 900;
+        border: 2px solid #111827;
+    }
 
-    section[data-testid="stSidebar"] { background: #111827; }
-    section[data-testid="stSidebar"] * { color: white; }
+    .stButton > button:hover {
+        background-color: #ea580c;
+        color: white;
+        border: 2px solid #111827;
+    }
+
+    .stLinkButton > a {
+        background-color: #0ea5e9;
+        color: white;
+        border-radius: 14px;
+        font-weight: 900;
+        border: 2px solid #111827;
+    }
+
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #020617, #0f172a 45%, #0ea5e9);
+        border-right: 4px solid #111827;
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: white;
+        font-weight: 700;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -159,13 +205,13 @@ def add_card(card):
 # -----------------------------
 st.markdown("""
 <div class="app-header">
-    <h1>🃏 SB Cards Business Platform</h1>
-    <p>Find better buys. Price smarter. Track inventory. Measure real profit.</p>
+    <h1>🧃 THE JUICE</h1>
+    <p>Card-flipping command center: value checks, deal analysis, inventory, sales, profit, and ROI.</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.sidebar.markdown("## 🃏 SB Cards")
-st.sidebar.markdown("Business control center")
+st.sidebar.markdown("## 🧃 THE JUICE")
+st.sidebar.markdown("Built for buying smarter and selling better.")
 
 menu = st.sidebar.radio(
     "Navigation",
