@@ -19,21 +19,22 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* FULL APP BACKGROUND */
+/* FULL APP BACKGROUND — CENTERED LOGO, NOT ZOOMED */
 .stApp {
-    background:
+    background-color: #f5efe4;
+    background-image:
         linear-gradient(
-            rgba(255, 255, 255, 0.58),
-            rgba(255, 255, 255, 0.58)
+            rgba(255, 255, 255, 0.28),
+            rgba(255, 255, 255, 0.28)
         ),
         url("https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.PNG");
-    background-size: cover;
-    background-position: center center;
+    background-size: min(1050px, 82vw) auto;
+    background-position: center 70px;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-/* MAKE PAGE USE THE FULL WIDTH */
+/* MAKE PAGE USE FULL WIDTH */
 .block-container {
     max-width: 100% !important;
     padding-top: 1.5rem !important;
@@ -42,74 +43,59 @@ st.markdown("""
     padding-bottom: 2rem !important;
 }
 
-/* TOP BRAND HEADER */
+/* HIDE THE BIG BRAND HEADER SO THE DASHBOARD LOOKS LIKE THE MOCKUP */
 .app-header {
-    background: linear-gradient(
-        135deg,
-        rgba(2, 6, 23, 0.96) 0%,
-        rgba(14, 165, 233, 0.92) 50%,
-        rgba(249, 115, 22, 0.94) 100%
-    );
-    color: white;
-    padding: 28px 30px;
-    border-radius: 28px;
-    border: 4px solid #111827;
-    margin-bottom: 28px;
-    text-align: center;
-    box-shadow: 0 16px 42px rgba(0,0,0,0.25);
-}
-
-.app-header h1 {
-    margin: 0;
-    font-size: 58px;
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing: -2px;
-    text-shadow: 4px 4px 0 #111827;
-}
-
-.app-header p {
-    margin-top: 12px;
-    margin-bottom: 0;
-    font-size: 19px;
-    font-weight: 800;
-    color: #ffffff;
+    display: none;
 }
 
 /* SECTION INTRO CARDS */
 .section-card {
-    background: rgba(255,255,255,0.76);
-    padding: 28px;
-    border-radius: 24px;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
-    border: 1px solid rgba(255,255,255,0.65);
-    margin-bottom: 24px;
-    backdrop-filter: blur(3px);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 36px;
 }
 
 .section-card h2, .section-card h3 {
-    font-weight: 900;
+    font-weight: 950;
+    font-size: 42px;
+    color: #111827;
+}
+
+.section-card p, .section-card div, .section-card span {
+    font-size: 20px;
+    color: #111827;
 }
 
 /* METRIC CARDS */
 div[data-testid="stMetric"] {
-    background: rgba(255,255,255,0.88);
-    padding: 24px 26px;
+    background: rgba(255,255,255,0.91);
+    padding: 28px 30px;
     border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.14);
-    border-left: 9px solid #f97316;
-    min-height: 150px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.13);
+    border-left: 10px solid #f97316;
+    min-height: 175px;
     backdrop-filter: blur(5px);
 }
 
 div[data-testid="stMetricLabel"] {
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: 800 !important;
+    color: #111827 !important;
 }
 
 div[data-testid="stMetricValue"] {
-    font-size: 44px !important;
-    font-weight: 900 !important;
+    font-size: 54px !important;
+    font-weight: 950 !important;
+    color: #111827 !important;
+}
+
+/* INVENTORY HEADING */
+h2, h3 {
+    color: #111827;
+    font-weight: 950 !important;
 }
 
 /* BUTTONS */
@@ -153,13 +139,13 @@ section[data-testid="stSidebar"] * {
 
 /* INPUTS */
 .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {
-    background-color: rgba(255,255,255,0.92) !important;
+    background-color: rgba(255,255,255,0.94) !important;
     border-radius: 12px !important;
 }
 
 /* TABLE AREA */
 [data-testid="stDataFrame"] {
-    background: rgba(255,255,255,0.86);
+    background: rgba(255,255,255,0.88);
     border-radius: 20px;
     padding: 10px;
     box-shadow: 0 10px 24px rgba(0,0,0,0.10);
@@ -198,12 +184,9 @@ div[data-testid="stAlert"] {
         padding-right: 1rem !important;
     }
 
-    .app-header h1 {
-        font-size: 40px;
-    }
-
-    .app-header p {
-        font-size: 15px;
+    .stApp {
+        background-size: 760px auto;
+        background-position: center 80px;
     }
 }
 
