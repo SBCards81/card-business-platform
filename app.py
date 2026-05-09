@@ -363,26 +363,44 @@ if menu == "Dashboard":
         avg_roi = 0
 
     hero_html = f"""
-    <div class="juice-hero">
-        <div class="hero-title">📊 Business Dashboard</div>
-        <div class="hero-subtitle">Real numbers: inventory value, sales, net profit, and ROI.</div>
+<div class="juice-hero">
 
-        <div class="hero-grid-4">
-            {custom_metric('Cards in Stock', total_inventory)}
-            {custom_metric('Inventory Value', money(inventory_value))}
-            {custom_metric('Total Sales', money(total_sales))}
-            {custom_metric('Net Profit', money(total_net_profit))}
-        </div>
+    <div class="hero-title">📊 Business Dashboard</div>
 
-        <div class="hero-grid-2">
-            {custom_metric('Average ROI', f'{avg_roi:.1f}%')}
-            {custom_metric('Total Cards Logged', len(df))}
-        </div>
-
-        <div class="inventory-title-custom">📦 Inventory</div>
-        <div class="custom-alert">No cards added yet. Start with Deal Analyzer or Value Checker.</div>
+    <div class="hero-subtitle">
+        Real numbers: inventory value, sales, net profit, and ROI.
     </div>
-    """
+
+    <div class="hero-grid-4">
+
+        {custom_metric('Cards in Stock', total_inventory)}
+
+        {custom_metric('Inventory Value', money(inventory_value))}
+
+        {custom_metric('Total Sales', money(total_sales))}
+
+        {custom_metric('Net Profit', money(total_net_profit))}
+
+    </div>
+
+    <div class="hero-grid-2">
+
+        {custom_metric('Average ROI', f'{avg_roi:.1f}%')}
+
+        {custom_metric('Total Cards Logged', len(df))}
+
+    </div>
+
+    <div class="inventory-title-custom">
+        📦 Inventory
+    </div>
+
+    <div class="custom-alert">
+        No cards added yet. Start with Deal Analyzer or Value Checker.
+    </div>
+
+</div>
+"""
 
     if df.empty:
         st.markdown(hero_html, unsafe_allow_html=True)
