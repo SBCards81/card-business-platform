@@ -12,198 +12,237 @@ st.set_page_config(
     layout="wide"
 )
 
+JUICE_IMAGE_URL = "https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.PNG"
+
 # --------------------------------------------------
-# BRAND STYLING
-# Uses your GitHub file: juice-bg.PNG
+# STYLING
 # --------------------------------------------------
-st.markdown("""
+st.markdown(f"""
 <style>
 
-/* APP BACKGROUND — centered logo, visible but not blown up */
-.stApp {
-    background-color: #f6efe4;
-    background-image:
-        linear-gradient(
-            rgba(255, 255, 255, 0.34),
-            rgba(255, 255, 255, 0.34)
-        ),
-        url("https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.PNG");
-    background-size: min(980px, 76vw) auto;
-    background-position: center 58px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+/* Clean page background */
+.stApp {{
+    background: #f5efe6;
+}}
 
-/* FULL WIDTH */
-.block-container {
+/* Full-width layout */
+.block-container {{
     max-width: 100% !important;
-    padding-top: 2rem !important;
-    padding-left: 3.75rem !important;
-    padding-right: 3.75rem !important;
-    padding-bottom: 2.5rem !important;
-}
+    padding: 2rem 3.5rem 2.5rem 3.5rem !important;
+}}
 
-/* HIDE THE OLD HEADER — the dashboard title is the hero now */
-.app-header {
-    display: none;
-}
+/* Hide Streamlit link icons beside headings */
+a[href^="#"] {{
+    display: none !important;
+}}
 
-/* SECTION INTRO — transparent so background shows */
-.section-card {
-    background: transparent;
-    padding: 0;
-    border: none;
-    box-shadow: none;
+/* Sidebar */
+section[data-testid="stSidebar"] {{
+    background: linear-gradient(180deg, #020617 0%, #111827 60%, #0ea5e9 100%);
+    border-right: 4px solid #111827;
+}}
+
+section[data-testid="stSidebar"] * {{
+    color: white !important;
+    font-weight: 750;
+}}
+
+/* Controlled hero background panel */
+.juice-hero {{
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+    min-height: 760px;
+    padding: 48px 52px;
     margin-bottom: 34px;
-}
+    background:
+        linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)),
+        url('{JUICE_IMAGE_URL}');
+    background-size: 900px auto;
+    background-position: center 20px;
+    background-repeat: no-repeat;
+    background-color: #fbf7ef;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.16);
+    border: 1px solid rgba(17,24,39,0.12);
+}}
 
-.section-card h2, .section-card h3 {
+.hero-title {{
     color: #111827;
-    font-weight: 950 !important;
-    font-size: 44px !important;
-    letter-spacing: -1px;
-}
+    font-size: 52px;
+    font-weight: 950;
+    letter-spacing: -1.5px;
+    margin: 0 0 10px 0;
+}}
 
-.section-card p {
+.hero-subtitle {{
     color: #111827;
     font-size: 21px;
-    font-weight: 500;
-}
+    font-weight: 550;
+    margin-bottom: 54px;
+}}
 
-/* METRIC CARDS — more transparent to let logo show */
-div[data-testid="stMetric"] {
-    background: rgba(255,255,255,0.82);
-    padding: 26px 30px;
-    border-radius: 23px;
-    box-shadow: 0 13px 30px rgba(0,0,0,0.12);
+/* Metric cards inside hero */
+.hero-metric {{
+    background: rgba(255,255,255,0.90);
     border-left: 9px solid #f97316;
-    min-height: 166px;
-    backdrop-filter: blur(2px);
-}
+    border-radius: 24px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+    padding: 28px 28px;
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}}
 
-div[data-testid="stMetricLabel"] {
-    font-size: 19px !important;
+.metric-label-custom {{
+    color: #111827;
+    font-size: 19px;
+    font-weight: 750;
+    margin-bottom: 18px;
+}}
+
+.metric-value-custom {{
+    color: #0f172a;
+    font-size: 54px;
+    font-weight: 950;
+    line-height: 1;
+}}
+
+.hero-grid-4 {{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    margin-bottom: 28px;
+}}
+
+.hero-grid-2 {{
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: 28px;
+    margin-bottom: 52px;
+}}
+
+.inventory-title-custom {{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 44px;
+    font-weight: 950;
+    color: #111827;
+    margin-bottom: 22px;
+}}
+
+.custom-alert {{
+    background: rgba(219,234,254,0.91);
+    border-radius: 18px;
+    padding: 22px 26px;
+    color: #075985;
+    font-size: 20px;
+    font-weight: 600;
+}}
+
+/* Normal section cards for all other pages */
+.section-card {{
+    background: rgba(255,255,255,0.92);
+    padding: 28px;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    border: 1px solid rgba(17,24,39,0.10);
+    margin-bottom: 24px;
+}}
+
+.section-card h2, .section-card h3 {{
+    color: #111827;
+    font-weight: 950 !important;
+}}
+
+/* Streamlit metric cards outside hero */
+div[data-testid="stMetric"] {{
+    background: rgba(255,255,255,0.92);
+    padding: 22px 24px;
+    border-radius: 22px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.11);
+    border-left: 8px solid #f97316;
+}}
+
+div[data-testid="stMetricLabel"] {{
+    font-size: 17px !important;
     font-weight: 800 !important;
     color: #111827 !important;
-}
+}}
 
-div[data-testid="stMetricValue"] {
-    font-size: 54px !important;
+div[data-testid="stMetricValue"] {{
+    font-size: 42px !important;
     font-weight: 950 !important;
     color: #0f172a !important;
-}
+}}
 
-/* HEADINGS */
-h1, h2, h3 {
-    color: #111827 !important;
-    font-weight: 950 !important;
-}
-
-/* INVENTORY TITLE SPACING */
-h2 {
-    letter-spacing: -1px;
-}
-
-/* INFO BOX */
-div[data-testid="stAlert"] {
-    border-radius: 18px;
-    background: rgba(219,234,254,0.84);
-    backdrop-filter: blur(2px);
-    font-size: 19px;
-}
-
-/* BUTTONS */
-.stButton > button {
+/* Buttons */
+.stButton > button {{
     background-color: #f97316;
     color: white;
-    border-radius: 16px;
+    border-radius: 15px;
     min-height: 48px;
     font-weight: 900;
     border: 3px solid #111827;
     font-size: 16px;
-    box-shadow: 0 7px 14px rgba(0,0,0,0.16);
-}
+    box-shadow: 0 7px 14px rgba(0,0,0,0.14);
+}}
 
-.stButton > button:hover {
+.stButton > button:hover {{
     background-color: #ea580c;
     color: white;
-    border: 3px solid #111827;
-}
+}}
 
-.stLinkButton > a {
+.stLinkButton > a {{
     background-color: #0ea5e9;
     color: white;
-    border-radius: 16px;
+    border-radius: 15px;
     min-height: 48px;
     font-weight: 900;
     border: 3px solid #111827;
-    box-shadow: 0 7px 14px rgba(0,0,0,0.16);
-}
+}}
 
-/* SIDEBAR */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #020617 0%, #0f172a 45%, #0ea5e9 100%);
-    border-right: 4px solid #111827;
-}
-
-section[data-testid="stSidebar"] * {
-    color: white !important;
-    font-weight: 750;
-}
-
-/* INPUTS */
+/* Inputs and tables */
 .stTextInput input,
 .stNumberInput input,
 textarea,
-.stSelectbox div[data-baseweb="select"] {
-    background-color: rgba(255,255,255,0.88) !important;
+.stSelectbox div[data-baseweb="select"] {{
+    background-color: rgba(255,255,255,0.94) !important;
     border-radius: 12px !important;
-}
+}}
 
-/* DATA TABLES */
-[data-testid="stDataFrame"] {
-    background: rgba(255,255,255,0.80);
+[data-testid="stDataFrame"] {{
+    background: rgba(255,255,255,0.88);
     border-radius: 20px;
     padding: 10px;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-    backdrop-filter: blur(2px);
-}
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}}
 
-/* STATUS COLORS */
-.good {
-    color: #15803d;
-    font-weight: 950;
-    font-size: 24px;
-}
+.good {{ color: #15803d; font-weight: 950; font-size: 24px; }}
+.bad {{ color: #dc2626; font-weight: 950; font-size: 24px; }}
+.warn {{ color: #ea580c; font-weight: 950; font-size: 24px; }}
 
-.bad {
-    color: #dc2626;
-    font-weight: 950;
-    font-size: 24px;
-}
+@media (max-width: 900px) {{
+    .block-container {{
+        padding: 1rem !important;
+    }}
 
-.warn {
-    color: #ea580c;
-    font-weight: 950;
-    font-size: 24px;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .block-container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-
-    .stApp {
+    .juice-hero {{
+        padding: 28px 22px;
         background-size: 720px auto;
-        background-position: center 90px;
-    }
+        min-height: 900px;
+    }}
 
-    div[data-testid="stMetricValue"] {
-        font-size: 42px !important;
-    }
-}
+    .hero-grid-4,
+    .hero-grid-2 {{
+        grid-template-columns: 1fr;
+    }}
+
+    .hero-title {{
+        font-size: 38px;
+    }}
+}}
 
 </style>
 """, unsafe_allow_html=True)
@@ -286,16 +325,18 @@ def add_card(card):
         ignore_index=True
     )
 
-# --------------------------------------------------
-# HEADER + NAVIGATION
-# --------------------------------------------------
-st.markdown("""
-<div class="app-header">
-    <h1>🧃 THE JUICE</h1>
-    <p>Card-flipping command center: value checks, deal analysis, inventory, sales, profit, and ROI.</p>
-</div>
-""", unsafe_allow_html=True)
 
+def custom_metric(label, value):
+    return f"""
+    <div class="hero-metric">
+        <div class="metric-label-custom">{label}</div>
+        <div class="metric-value-custom">{value}</div>
+    </div>
+    """
+
+# --------------------------------------------------
+# SIDEBAR NAVIGATION
+# --------------------------------------------------
 st.sidebar.markdown("## 🧃 THE JUICE")
 st.sidebar.markdown("Built for buying smarter and selling better.")
 
@@ -311,11 +352,6 @@ menu = st.sidebar.radio(
 # DASHBOARD
 # --------------------------------------------------
 if menu == "Dashboard":
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.subheader("📊 Business Dashboard")
-    st.write("Real numbers: inventory value, sales, net profit, and ROI.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
     df = st.session_state.inventory.copy()
 
     total_inventory = len(df[df["Status"] == "In Stock"])
@@ -326,20 +362,35 @@ if menu == "Dashboard":
     if pd.isna(avg_roi):
         avg_roi = 0
 
-    row1_col1, row1_col2, row1_col3, row1_col4 = st.columns(4)
-    row1_col1.metric("Cards in Stock", total_inventory)
-    row1_col2.metric("Inventory Value", money(inventory_value))
-    row1_col3.metric("Total Sales", money(total_sales))
-    row1_col4.metric("Net Profit", money(total_net_profit))
+    hero_html = f"""
+    <div class="juice-hero">
+        <div class="hero-title">📊 Business Dashboard</div>
+        <div class="hero-subtitle">Real numbers: inventory value, sales, net profit, and ROI.</div>
 
-    row2_col1, row2_col2 = st.columns([1, 2.25])
-    row2_col1.metric("Average ROI", f"{avg_roi:.1f}%")
-    row2_col2.metric("Total Cards Logged", len(df))
+        <div class="hero-grid-4">
+            {custom_metric('Cards in Stock', total_inventory)}
+            {custom_metric('Inventory Value', money(inventory_value))}
+            {custom_metric('Total Sales', money(total_sales))}
+            {custom_metric('Net Profit', money(total_net_profit))}
+        </div>
 
-    st.markdown("## 📦 Inventory")
+        <div class="hero-grid-2">
+            {custom_metric('Average ROI', f'{avg_roi:.1f}%')}
+            {custom_metric('Total Cards Logged', len(df))}
+        </div>
+
+        <div class="inventory-title-custom">📦 Inventory</div>
+        <div class="custom-alert">No cards added yet. Start with Deal Analyzer or Value Checker.</div>
+    </div>
+    """
+
     if df.empty:
-        st.info("No cards added yet. Start with Deal Analyzer or Value Checker.")
+        st.markdown(hero_html, unsafe_allow_html=True)
     else:
+        st.markdown(hero_html.replace(
+            '<div class="custom-alert">No cards added yet. Start with Deal Analyzer or Value Checker.</div>',
+            ''
+        ), unsafe_allow_html=True)
         show_cols = ["Card Name", "Player", "Brand/Set", "Category", "Purchase Price", "Estimated Value", "Status", "Date Added"]
         st.dataframe(df[show_cols], use_container_width=True, hide_index=True)
 
