@@ -15,7 +15,7 @@ st.set_page_config(
 st.markdown("""
 <style>
     body {
-        background-image: url('https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.png');
+        background-image: url('https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.PNG');
         background-size: 430px;
         background-position: center;
         background-repeat: no-repeat;
