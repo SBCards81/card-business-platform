@@ -3,131 +3,216 @@ import pandas as pd
 from datetime import datetime
 from urllib.parse import quote_plus
 
+# --------------------------------------------------
+# PAGE SETUP
+# --------------------------------------------------
 st.set_page_config(
     page_title="The Juice Card Platform",
     page_icon="🧃",
     layout="wide"
 )
 
-# -----------------------------
-# CUSTOM STYLING / BRANDING
-# -----------------------------
+# --------------------------------------------------
+# BRAND STYLING
+# IMPORTANT: your GitHub image file is juice-bg.PNG
+# --------------------------------------------------
 st.markdown("""
 <style>
-    body {
-        background-image: url('https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.PNG');
-        background-size: 430px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
 
-    .stApp {
-        background: rgba(255, 255, 255, 0.88);
-    }
+/* FULL APP BACKGROUND */
+.stApp {
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, 0.58),
+            rgba(255, 255, 255, 0.58)
+        ),
+        url("https://raw.githubusercontent.com/SBCards81/card-business-platform/main/juice-bg.PNG");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
+/* MAKE PAGE USE THE FULL WIDTH */
+.block-container {
+    max-width: 100% !important;
+    padding-top: 1.5rem !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/* TOP BRAND HEADER */
+.app-header {
+    background: linear-gradient(
+        135deg,
+        rgba(2, 6, 23, 0.96) 0%,
+        rgba(14, 165, 233, 0.92) 50%,
+        rgba(249, 115, 22, 0.94) 100%
+    );
+    color: white;
+    padding: 28px 30px;
+    border-radius: 28px;
+    border: 4px solid #111827;
+    margin-bottom: 28px;
+    text-align: center;
+    box-shadow: 0 16px 42px rgba(0,0,0,0.25);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 950;
+    letter-spacing: -2px;
+    text-shadow: 4px 4px 0 #111827;
+}
+
+.app-header p {
+    margin-top: 12px;
+    margin-bottom: 0;
+    font-size: 19px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+/* SECTION INTRO CARDS */
+.section-card {
+    background: rgba(255,255,255,0.76);
+    padding: 28px;
+    border-radius: 24px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    border: 1px solid rgba(255,255,255,0.65);
+    margin-bottom: 24px;
+    backdrop-filter: blur(3px);
+}
+
+.section-card h2, .section-card h3 {
+    font-weight: 900;
+}
+
+/* METRIC CARDS */
+div[data-testid="stMetric"] {
+    background: rgba(255,255,255,0.88);
+    padding: 24px 26px;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.14);
+    border-left: 9px solid #f97316;
+    min-height: 150px;
+    backdrop-filter: blur(5px);
+}
+
+div[data-testid="stMetricLabel"] {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+}
+
+div[data-testid="stMetricValue"] {
+    font-size: 44px !important;
+    font-weight: 900 !important;
+}
+
+/* BUTTONS */
+.stButton > button {
+    background-color: #f97316;
+    color: white;
+    border-radius: 16px;
+    min-height: 48px;
+    font-weight: 900;
+    border: 3px solid #111827;
+    font-size: 16px;
+    box-shadow: 0 7px 14px rgba(0,0,0,0.18);
+}
+
+.stButton > button:hover {
+    background-color: #ea580c;
+    color: white;
+    border: 3px solid #111827;
+}
+
+.stLinkButton > a {
+    background-color: #0ea5e9;
+    color: white;
+    border-radius: 16px;
+    min-height: 48px;
+    font-weight: 900;
+    border: 3px solid #111827;
+    box-shadow: 0 7px 14px rgba(0,0,0,0.18);
+}
+
+/* SIDEBAR */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #020617 0%, #0f172a 45%, #0ea5e9 100%);
+    border-right: 4px solid #111827;
+}
+
+section[data-testid="stSidebar"] * {
+    color: white !important;
+    font-weight: 750;
+}
+
+/* INPUTS */
+.stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {
+    background-color: rgba(255,255,255,0.92) !important;
+    border-radius: 12px !important;
+}
+
+/* TABLE AREA */
+[data-testid="stDataFrame"] {
+    background: rgba(255,255,255,0.86);
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+}
+
+/* INFO BOXES */
+div[data-testid="stAlert"] {
+    border-radius: 18px;
+    background: rgba(219,234,254,0.88);
+    backdrop-filter: blur(3px);
+}
+
+/* STATUS COLORS */
+.good {
+    color: #15803d;
+    font-weight: 950;
+    font-size: 24px;
+}
+
+.bad {
+    color: #dc2626;
+    font-weight: 950;
+    font-size: 24px;
+}
+
+.warn {
+    color: #ea580c;
+    font-weight: 950;
+    font-size: 24px;
+}
+
+/* MOBILE FRIENDLY */
+@media (max-width: 768px) {
     .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-
-    .app-header {
-        background: linear-gradient(135deg, rgba(2,6,23,0.96) 0%, rgba(14,165,233,0.92) 55%, rgba(249,115,22,0.92) 100%);
-        padding: 30px;
-        border-radius: 26px;
-        color: white;
-        margin-bottom: 24px;
-        box-shadow: 0 14px 38px rgba(0,0,0,0.22);
-        border: 4px solid #111827;
-        text-align: center;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
 
     .app-header h1 {
-        margin: 0;
-        font-size: 48px;
-        font-weight: 900;
-        letter-spacing: -1px;
-        text-shadow: 3px 3px 0px #111827;
+        font-size: 40px;
     }
 
     .app-header p {
-        margin-top: 8px;
-        font-size: 18px;
-        color: #ffffff;
-        font-weight: 700;
+        font-size: 15px;
     }
+}
 
-    .section-card {
-        background: rgba(255,255,255,0.94);
-        padding: 24px;
-        border-radius: 22px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
-        border: 2px solid #e5e7eb;
-        margin-bottom: 20px;
-    }
-
-    .step-badge {
-        display: inline-block;
-        background: #0ea5e9;
-        color: white;
-        padding: 7px 14px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 900;
-        margin-bottom: 10px;
-        border: 2px solid #111827;
-    }
-
-    .good { color: #16a34a; font-weight: 900; font-size: 22px; }
-    .bad { color: #dc2626; font-weight: 900; font-size: 22px; }
-    .warn { color: #f97316; font-weight: 900; font-size: 22px; }
-
-    div[data-testid="stMetric"] {
-        background: rgba(255,255,255,0.96);
-        padding: 18px;
-        border-radius: 18px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
-        border-left: 7px solid #f97316;
-    }
-
-    .stButton > button {
-        background-color: #f97316;
-        color: white;
-        border-radius: 14px;
-        height: 46px;
-        font-weight: 900;
-        border: 2px solid #111827;
-    }
-
-    .stButton > button:hover {
-        background-color: #ea580c;
-        color: white;
-        border: 2px solid #111827;
-    }
-
-    .stLinkButton > a {
-        background-color: #0ea5e9;
-        color: white;
-        border-radius: 14px;
-        font-weight: 900;
-        border: 2px solid #111827;
-    }
-
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #020617, #0f172a 45%, #0ea5e9);
-        border-right: 4px solid #111827;
-    }
-
-    section[data-testid="stSidebar"] * {
-        color: white;
-        font-weight: 700;
-    }
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
-# SESSION STORAGE
-# -----------------------------
+# --------------------------------------------------
+# DATA SETUP
+# --------------------------------------------------
 columns = [
     "Card Name", "Year", "Brand/Set", "Player", "Sport", "Category",
     "Card Number", "Parallel/Variation", "Grade", "Purchase Price",
@@ -145,20 +230,23 @@ else:
 
 if "last_estimate" not in st.session_state:
     st.session_state.last_estimate = None
+
 if "last_card" not in st.session_state:
     st.session_state.last_card = {}
 
-# -----------------------------
+# --------------------------------------------------
 # HELPER FUNCTIONS
-# -----------------------------
+# --------------------------------------------------
 def build_search_query(year, brand, player, card_number, variation, grade):
     parts = [year, brand, player]
+
     if card_number:
         parts.append(f"#{card_number}" if not str(card_number).startswith("#") else str(card_number))
     if variation:
         parts.append(variation)
     if grade and grade != "Raw":
         parts.append(grade)
+
     return " ".join([str(p).strip() for p in parts if str(p).strip()])
 
 
@@ -200,9 +288,9 @@ def add_card(card):
         ignore_index=True
     )
 
-# -----------------------------
-# HEADER
-# -----------------------------
+# --------------------------------------------------
+# HEADER + NAVIGATION
+# --------------------------------------------------
 st.markdown("""
 <div class="app-header">
     <h1>🧃 THE JUICE</h1>
@@ -221,9 +309,9 @@ menu = st.sidebar.radio(
     ]
 )
 
-# -----------------------------
+# --------------------------------------------------
 # DASHBOARD
-# -----------------------------
+# --------------------------------------------------
 if menu == "Dashboard":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("📊 Business Dashboard")
@@ -231,6 +319,7 @@ if menu == "Dashboard":
     st.markdown('</div>', unsafe_allow_html=True)
 
     df = st.session_state.inventory.copy()
+
     total_inventory = len(df[df["Status"] == "In Stock"])
     inventory_value = pd.to_numeric(df[df["Status"] == "In Stock"]["Estimated Value"], errors="coerce").fillna(0).sum()
     total_sales = pd.to_numeric(df["Sale Price"], errors="coerce").fillna(0).sum()
@@ -239,26 +328,26 @@ if menu == "Dashboard":
     if pd.isna(avg_roi):
         avg_roi = 0
 
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Cards in Stock", total_inventory)
-    col2.metric("Inventory Value", money(inventory_value))
-    col3.metric("Total Sales", money(total_sales))
-    col4.metric("Net Profit", money(total_net_profit))
+    row1_col1, row1_col2, row1_col3, row1_col4 = st.columns(4)
+    row1_col1.metric("Cards in Stock", total_inventory)
+    row1_col2.metric("Inventory Value", money(inventory_value))
+    row1_col3.metric("Total Sales", money(total_sales))
+    row1_col4.metric("Net Profit", money(total_net_profit))
 
-    col5, col6 = st.columns(2)
-    col5.metric("Average ROI", f"{avg_roi:.1f}%")
-    col6.metric("Total Cards Logged", len(df))
+    row2_col1, row2_col2 = st.columns([1, 2])
+    row2_col1.metric("Average ROI", f"{avg_roi:.1f}%")
+    row2_col2.metric("Total Cards Logged", len(df))
 
-    st.markdown("### 📦 Inventory")
+    st.markdown("## 📦 Inventory")
     if df.empty:
         st.info("No cards added yet. Start with Deal Analyzer or Value Checker.")
     else:
         show_cols = ["Card Name", "Player", "Brand/Set", "Category", "Purchase Price", "Estimated Value", "Status", "Date Added"]
         st.dataframe(df[show_cols], use_container_width=True, hide_index=True)
 
-# -----------------------------
+# --------------------------------------------------
 # DEAL ANALYZER
-# -----------------------------
+# --------------------------------------------------
 elif menu == "Deal Analyzer":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("🔥 Deal Analyzer")
@@ -266,12 +355,15 @@ elif menu == "Deal Analyzer":
     st.markdown('</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
+
     with col1:
         estimated_sale = st.number_input("Estimated Sale Price", min_value=0.0, step=0.01, value=100.0)
         asking_price = st.number_input("Seller Asking Price", min_value=0.0, step=0.01, value=50.0)
+
     with col2:
         fee_pct = st.number_input("Selling Fee %", min_value=0.0, step=0.1, value=13.25)
         shipping = st.number_input("Shipping / Supplies", min_value=0.0, step=0.01, value=5.00)
+
     with col3:
         desired_profit = st.number_input("Desired Profit", min_value=0.0, step=0.01, value=20.00)
 
@@ -293,12 +385,14 @@ elif menu == "Deal Analyzer":
 
     st.divider()
     st.subheader("Optional: Save This Deal to Inventory")
+
     col_a, col_b = st.columns(2)
     with col_a:
         year = st.text_input("Year", "2024")
         brand = st.text_input("Brand / Set", "Topps Chrome")
         player = st.text_input("Player")
         sport = st.selectbox("Sport", ["Football", "Basketball", "Baseball", "Soccer", "Pokemon", "Other"])
+
     with col_b:
         category = st.selectbox("Category", ["Rookie QB", "Rookie", "Star", "Prospect", "Autograph", "Patch", "Graded", "Raw", "Other"])
         card_number = st.text_input("Card Number")
@@ -338,9 +432,9 @@ elif menu == "Deal Analyzer":
         })
         st.success("Deal added to inventory!")
 
-# -----------------------------
+# --------------------------------------------------
 # VALUE CHECKER
-# -----------------------------
+# --------------------------------------------------
 elif menu == "Value Checker":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("🔎 Card Value Checker")
@@ -348,12 +442,14 @@ elif menu == "Value Checker":
     st.markdown('</div>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
+
     with col1:
         year = st.text_input("Year", "2024")
         brand = st.text_input("Brand / Set", "Topps Chrome")
         player = st.text_input("Player", "")
         sport = st.selectbox("Sport", ["Football", "Basketball", "Baseball", "Soccer", "Pokemon", "Other"])
         card_number = st.text_input("Card Number", "")
+
     with col2:
         category = st.selectbox("Category", ["Rookie QB", "Rookie", "Star", "Prospect", "Autograph", "Patch", "Graded", "Raw", "Other"])
         variation = st.text_input("Parallel / Variation", "")
@@ -361,11 +457,13 @@ elif menu == "Value Checker":
         purchase_price = st.number_input("Your Purchase Price", min_value=0.0, step=0.01)
 
     search_query = build_search_query(year, brand, player, card_number, variation, grade)
+
     if search_query:
         st.info(f"Search phrase: {search_query}")
         st.link_button("Open eBay Sold Listings", ebay_link(search_query))
 
     st.subheader("Enter Sold Comps")
+
     comp1, comp2, comp3 = st.columns(3)
     with comp1:
         c1 = st.number_input("Comp 1", min_value=0.0, step=0.01)
@@ -379,6 +477,7 @@ elif menu == "Value Checker":
 
     if st.button("Calculate Value"):
         comps = [x for x in [c1, c2, c3] if x > 0]
+
         if comps:
             estimated = round(sum(comps) / len(comps), 2)
             fees, net_profit, roi = calculate_net(estimated, purchase_price, fee_pct, shipping)
@@ -386,11 +485,22 @@ elif menu == "Value Checker":
 
             st.session_state.last_estimate = estimated
             st.session_state.last_card = {
-                "Card Name": search_query, "Year": year, "Brand/Set": brand, "Player": player,
-                "Sport": sport, "Category": category, "Card Number": card_number,
-                "Parallel/Variation": variation, "Grade": grade, "Purchase Price": purchase_price,
-                "Estimated Value": estimated, "Target Buy Price": max_buy, "Fees": fees,
-                "Shipping": shipping, "Net Profit": net_profit, "ROI %": roi
+                "Card Name": search_query,
+                "Year": year,
+                "Brand/Set": brand,
+                "Player": player,
+                "Sport": sport,
+                "Category": category,
+                "Card Number": card_number,
+                "Parallel/Variation": variation,
+                "Grade": grade,
+                "Purchase Price": purchase_price,
+                "Estimated Value": estimated,
+                "Target Buy Price": max_buy,
+                "Fees": fees,
+                "Shipping": shipping,
+                "Net Profit": net_profit,
+                "ROI %": roi
             }
 
             m1, m2, m3, m4 = st.columns(4)
@@ -404,6 +514,7 @@ elif menu == "Value Checker":
     if st.session_state.last_estimate is not None and st.session_state.last_card:
         st.divider()
         st.subheader("Add to Inventory")
+
         notes = st.text_area("Notes", key="value_notes")
         image = st.file_uploader("Upload Card Image", type=["png", "jpg", "jpeg"], key="value_image")
         image_name = image.name if image else ""
@@ -424,9 +535,9 @@ elif menu == "Value Checker":
             st.session_state.last_estimate = None
             st.session_state.last_card = {}
 
-# -----------------------------
+# --------------------------------------------------
 # ADD INVENTORY
-# -----------------------------
+# --------------------------------------------------
 elif menu == "Add Inventory":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("➕ Add Inventory Manually")
@@ -434,16 +545,19 @@ elif menu == "Add Inventory":
     st.markdown('</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
+
     with col1:
         year = st.text_input("Year")
         brand = st.text_input("Brand / Set")
         player = st.text_input("Player")
         sport = st.selectbox("Sport", ["Football", "Basketball", "Baseball", "Soccer", "Pokemon", "Other"])
+
     with col2:
         category = st.selectbox("Category", ["Rookie QB", "Rookie", "Star", "Prospect", "Autograph", "Patch", "Graded", "Raw", "Other"])
         card_number = st.text_input("Card Number")
         variation = st.text_input("Parallel / Variation")
         grade = st.selectbox("Grade", ["Raw", "PSA 10", "PSA 9", "BGS 9.5", "BGS 9", "SGC 10", "SGC 9.5", "Other"])
+
     with col3:
         purchase = st.number_input("Purchase Price", min_value=0.0, step=0.01)
         est = st.number_input("Estimated Value", min_value=0.0, step=0.01)
@@ -455,23 +569,40 @@ elif menu == "Add Inventory":
 
     if st.button("Add Card"):
         card_name = build_search_query(year, brand, player, card_number, variation, grade)
+
         if card_name.strip():
             add_card({
-                "Card Name": card_name, "Year": year, "Brand/Set": brand, "Player": player,
-                "Sport": sport, "Category": category, "Card Number": card_number,
-                "Parallel/Variation": variation, "Grade": grade, "Purchase Price": purchase,
-                "Estimated Value": est, "Target Buy Price": target, "Sale Price": None,
-                "Fees": None, "Shipping": None, "Net Profit": None, "ROI %": None,
-                "Customer": None, "Date Added": datetime.now().strftime("%Y-%m-%d"),
-                "Date Sold": None, "Status": "In Stock", "Image Name": image_name, "Notes": notes
+                "Card Name": card_name,
+                "Year": year,
+                "Brand/Set": brand,
+                "Player": player,
+                "Sport": sport,
+                "Category": category,
+                "Card Number": card_number,
+                "Parallel/Variation": variation,
+                "Grade": grade,
+                "Purchase Price": purchase,
+                "Estimated Value": est,
+                "Target Buy Price": target,
+                "Sale Price": None,
+                "Fees": None,
+                "Shipping": None,
+                "Net Profit": None,
+                "ROI %": None,
+                "Customer": None,
+                "Date Added": datetime.now().strftime("%Y-%m-%d"),
+                "Date Sold": None,
+                "Status": "In Stock",
+                "Image Name": image_name,
+                "Notes": notes
             })
             st.success("Card added!")
         else:
             st.warning("Enter enough card info to create a card name.")
 
-# -----------------------------
+# --------------------------------------------------
 # SALES TRACKER
-# -----------------------------
+# --------------------------------------------------
 elif menu == "Sales Tracker":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("💵 Sales Tracker")
@@ -516,9 +647,9 @@ elif menu == "Sales Tracker":
     else:
         st.info("No cards available to sell.")
 
-# -----------------------------
+# --------------------------------------------------
 # PROFIT REPORTS
-# -----------------------------
+# --------------------------------------------------
 elif menu == "Profit Reports":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("📈 Profit Reports")
@@ -546,9 +677,9 @@ elif menu == "Profit Reports":
     else:
         st.info("No sales yet.")
 
-# -----------------------------
+# --------------------------------------------------
 # INVENTORY AGING
-# -----------------------------
+# --------------------------------------------------
 elif menu == "Inventory Aging":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("⏳ Inventory Aging")
@@ -564,13 +695,17 @@ elif menu == "Inventory Aging":
             lambda d: "Consider lowering price" if d >= 30 else "Hold"
         )
         aged = in_stock.sort_values("Days in Inventory", ascending=False)
-        st.dataframe(aged[["Card Name", "Player", "Purchase Price", "Estimated Value", "Days in Inventory", "Action"]], use_container_width=True, hide_index=True)
+        st.dataframe(
+            aged[["Card Name", "Player", "Purchase Price", "Estimated Value", "Days in Inventory", "Action"]],
+            use_container_width=True,
+            hide_index=True
+        )
     else:
         st.info("No in-stock inventory yet.")
 
-# -----------------------------
+# --------------------------------------------------
 # WHAT'S WORKING
-# -----------------------------
+# --------------------------------------------------
 elif menu == "What’s Working":
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("🧠 What’s Working")
